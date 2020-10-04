@@ -2012,8 +2012,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["tasks", "user", "path"],
   data: function data() {
@@ -2035,8 +2033,7 @@ __webpack_require__.r(__webpack_exports__);
       content: "",
       searchText: "",
       errors: false,
-      todos: this.tasks,
-      origin: origin
+      todos: this.tasks
     };
   },
   methods: {
@@ -2050,7 +2047,7 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       var that = this;
-      axios.post(origin + "/json", {
+      axios.post(this.path + "json", {
         content: that.content,
         user_id: 1
       }).then(function (res) {
@@ -2069,7 +2066,7 @@ __webpack_require__.r(__webpack_exports__);
     toggleTask: function toggleTask(todo) {
       // is_done toggle
       todo.is_done = !todo.is_done;
-      axios.post(origin + "/json/done_" + todo.id, {
+      axios.post(this.path + "json/done_" + todo.id, {
         is_done: todo.is_done
       }).then(function (res) {
         console.log("toggle ok");
@@ -2082,7 +2079,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     closeEditTask: function closeEditTask(todo) {
       todo.edit_mode = false;
-      axios.post(origin + "/json/cont_" + todo.id, {
+      axios.post(this.path + "json/cont_" + todo.id, {
         content: todo.content
       }).then(function (res) {
         console.log("content ok");
@@ -2093,7 +2090,7 @@ __webpack_require__.r(__webpack_exports__);
     removeTask: function removeTask(todo) {
       var that = this;
       axios //delete
-      ["delete"](origin + "/json/" + todo.id).then(function (res) {
+      ["delete"](this.path + "json/" + todo.id).then(function (res) {
         var index = that.todos.indexOf(todo);
         that.todos.splice(index, 1);
       })["catch"](function (err) {
@@ -38569,11 +38566,7 @@ var render = function() {
         )
       }),
       0
-    ),
-    _vm._v(" "),
-    _c("p", [_vm._v(_vm._s(_vm.path) + " --- path")]),
-    _vm._v(" "),
-    _c("p", [_vm._v(_vm._s(_vm.origin) + " --- origin")])
+    )
   ])
 }
 var staticRenderFns = []

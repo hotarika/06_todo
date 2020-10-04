@@ -66,8 +66,6 @@
                 ></i>
             </li>
         </ul>
-        <p>{{ path }} --- path</p>
-        <p>{{ origin }} --- origin</p>
     </main>
 </template>
 
@@ -93,8 +91,7 @@ export default {
             content: "",
             searchText: "",
             errors: false,
-            todos: this.tasks,
-            origin: origin
+            todos: this.tasks
         };
     },
     methods: {
@@ -108,7 +105,7 @@ export default {
 
             let that = this;
             axios
-                .post(origin + "/json", {
+                .post(this.path + "json", {
                     content: that.content,
                     user_id: 1
                 })
@@ -132,7 +129,7 @@ export default {
             todo.is_done = !todo.is_done;
 
             axios
-                .post(origin + "/json/done_" + todo.id, {
+                .post(this.path + "json/done_" + todo.id, {
                     is_done: todo.is_done
                 })
                 .then(res => {
@@ -149,7 +146,7 @@ export default {
             todo.edit_mode = false;
 
             axios
-                .post(origin + "/json/cont_" + todo.id, {
+                .post(this.path + "json/cont_" + todo.id, {
                     content: todo.content
                 })
                 .then(res => {
@@ -162,7 +159,7 @@ export default {
         removeTask(todo) {
             let that = this;
             axios //delete
-                .delete(origin + "/json/" + todo.id)
+                .delete(this.path + "json/" + todo.id)
                 .then(res => {
                     let index = that.todos.indexOf(todo);
                     that.todos.splice(index, 1);
