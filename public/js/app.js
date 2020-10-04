@@ -2012,66 +2012,98 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["tasks", "user", "path"],
   data: function data() {
     return {
       // todos: [
       //     {
       //         id: 1,
-      //         taskName: "野菜を片付ける",
-      //         isDone: false,
-      //         editMode: false,
+      //         content: "野菜を片付ける",
+      //         is_done: false,
+      //         edit_mode: false
       //     },
       //     {
       //         id: 2,
-      //         taskName: "買い物に行く",
-      //         isDone: false,
-      //         editMode: false,
-      //     },
+      //         content: "買い物に行く",
+      //         is_done: false,
+      //         edit_mode: false
+      //     }
       // ],
+      content: "",
+      searchText: "",
       errors: false,
-      searchText: ""
+      todos: this.tasks
     };
   },
   methods: {
     addTask: function addTask() {
-      var text = this.$refs.text;
+      // エラー表示
+      var text = this.content;
 
-      if (!text.value) {
+      if (!text) {
         this.errors = true;
         return;
       }
 
-      this.todos.push({
-        id: Math.random().toString(36).slice(-16),
-        taskName: text.value,
-        isDone: false,
-        editMode: false
-      });
+      var that = this;
+      axios.post(origin + "/json", {
+        content: that.content,
+        user_id: 1
+      }).then(function (res) {
+        // タスクの追加
+        that.todos.push({
+          content: text,
+          user_id: that.user.id
+        });
+      })["catch"](function (err) {
+        console.log(err);
+      }); // データを初期状態に戻す
+
       this.errors = false;
-      text.value = "";
+      this.content = "";
     },
     toggleTask: function toggleTask(todo) {
-      todo.isDone = !todo.isDone;
+      // is_done toggle
+      todo.is_done = !todo.is_done;
+      axios.post(origin + "/json/done_" + todo.id, {
+        is_done: todo.is_done
+      }).then(function (res) {
+        console.log("toggle ok");
+      })["catch"](function (err) {
+        console.log(err);
+      });
     },
     editTask: function editTask(todo) {
-      todo.editMode = true;
+      todo.edit_mode = true;
     },
     closeEditTask: function closeEditTask(todo) {
-      todo.editMode = false;
+      todo.edit_mode = false;
+      axios.post(origin + "/json/cont_" + todo.id, {
+        content: todo.content
+      }).then(function (res) {
+        console.log("content ok");
+      })["catch"](function (err) {
+        console.log(err);
+      });
     },
     removeTask: function removeTask(todo) {
-      var index = this.todos.indexOf(todo);
-      this.todos.splice(index, 1);
+      var that = this;
+      axios //delete
+      ["delete"](origin + "/json/" + todo.id).then(function (res) {
+        var index = that.todos.indexOf(todo);
+        that.todos.splice(index, 1);
+      })["catch"](function (err) {
+        console.log(err);
+      });
     }
   },
   computed: {
     filteredTodos: function filteredTodos() {
-      var regexp = new RegExp("^" + this.searchText, "i");
+      // const regexp = new RegExp("^" + this.searchText, "i");
+      var regexp = new RegExp(this.searchText, "i");
       return this.todos.filter(function (elm) {
-        return elm.taskName.match(regexp);
+        return elm.content.match(regexp);
       });
     }
   }
@@ -38357,13 +38389,21 @@ var render = function() {
     _c("form", { staticClass: "form" }, [
       _c("div", { staticClass: "inputArea" }, [
         _c("input", {
-          ref: "text",
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.content,
+              expression: "content"
+            }
+          ],
           staticClass: "inputText",
           attrs: {
             type: "text",
             value: "",
             placeholder: "ここにTODO内容を書く"
           },
+          domProps: { value: _vm.content },
           on: {
             keypress: function($event) {
               if (
@@ -38374,6 +38414,12 @@ var render = function() {
               }
               $event.preventDefault()
               return _vm.addTask($event)
+            },
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.content = $event.target.value
             }
           }
         }),
@@ -38405,15 +38451,25 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.searchText,
+            expression: "searchText"
+          }
+        ],
         staticClass: "searchBox__input",
         attrs: {
           type: "text",
-          value: "",
           placeholder: "ここに絞り込みたいキーワードを入力する"
         },
         domProps: { value: _vm.searchText },
         on: {
           input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
             _vm.searchText = $event.target.value
           }
         }
@@ -38429,14 +38485,14 @@ var render = function() {
           {
             key: todo.id,
             staticClass: "list__item",
-            class: { "list__item--done": todo.isDone }
+            class: { "list__item--done": todo.is_done }
           },
           [
             _c("i", {
               staticClass: "fa",
               class: {
-                "fa-square-o": !todo.isDone,
-                "fa-check-square": todo.isDone
+                "fa-square-o": !todo.is_done,
+                "fa-check-square": todo.is_done
               },
               attrs: { "aria-hidden": "true" },
               on: {
@@ -38446,7 +38502,7 @@ var render = function() {
               }
             }),
             _vm._v(" "),
-            !todo.editMode
+            !todo.edit_mode
               ? _c(
                   "span",
                   {
@@ -38457,23 +38513,23 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v(_vm._s(todo.taskName))]
+                  [_vm._v(_vm._s(todo.content))]
                 )
               : _vm._e(),
             _vm._v(" "),
-            todo.editMode
+            todo.edit_mode
               ? _c("input", {
                   directives: [
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: todo.taskName,
-                      expression: "todo.taskName"
+                      value: todo.content,
+                      expression: "todo.content"
                     }
                   ],
                   staticClass: "editText",
                   attrs: { type: "text" },
-                  domProps: { value: todo.taskName },
+                  domProps: { value: todo.content },
                   on: {
                     keyup: function($event) {
                       if (
@@ -38491,7 +38547,7 @@ var render = function() {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.$set(todo, "taskName", $event.target.value)
+                      _vm.$set(todo, "content", $event.target.value)
                     }
                   }
                 })

@@ -17,5 +17,12 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/todo', 'TodoController@index')->name('todo');
+Route::get('home', 'HomeController@index')->name('home');
+Route::get('todo', 'TodoController@index')->name('todo');
+
+// async
+// Route::resource('json', 'TasksAsyncController');
+Route::post('json', 'TasksAsyncController@store');
+Route::post('json/done_{id}', 'TasksAsyncController@updateDone');
+Route::post('json/cont_{id}', 'TasksAsyncController@updateContent');
+Route::delete('json/{id}', 'TasksAsyncController@destroy');

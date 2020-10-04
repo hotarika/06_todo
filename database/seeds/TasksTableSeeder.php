@@ -16,6 +16,8 @@ class TasksTableSeeder extends Seeder
         DB::table('tasks')->insert([
             'id' => 1,
             'content' => 'ユーザー1：野菜を買う',
+            'is_done' => false,
+            'edit_mode' => false,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
             'user_id' => 1
@@ -23,13 +25,17 @@ class TasksTableSeeder extends Seeder
         DB::table('tasks')->insert([
             'id' => 2,
             'content' => 'ユーザー1：部屋を片付ける',
+            'is_done' => false,
+            'edit_mode' => false,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
             'user_id' => 1
         ]);
         DB::table('tasks')->insert([
             'id' => 3,
-            'content' => 'ユーザー2：カレーを作る',
+            'content' => 'ユーザー2：部屋を片付ける',
+            'is_done' => false,
+            'edit_mode' => false,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
             'user_id' => 2

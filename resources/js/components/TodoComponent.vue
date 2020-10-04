@@ -7,7 +7,7 @@
                     type="text"
                     class="inputText"
                     value=""
-                    ref="text"
+                    v-model="content"
                     @keypress.enter.prevent="addTask"
                     placeholder="ここにTODO内容を書く"
                 />
@@ -22,9 +22,7 @@
             <input
                 type="text"
                 class="searchBox__input"
-                value=""
-                :value="searchText"
-                @input="searchText = $event.target.value"
+                v-model="searchText"
                 placeholder="ここに絞り込みたいキーワードを入力する"
             />
         </div>
@@ -34,30 +32,30 @@
             <li
                 v-for="todo in filteredTodos"
                 class="list__item"
-                :class="{ 'list__item--done': todo.isDone }"
+                :class="{ 'list__item--done': todo.is_done }"
                 :key="todo.id"
             >
                 <i
                     class="fa"
                     :class="{
-                        'fa-square-o': !todo.isDone,
-                        'fa-check-square': todo.isDone
+                        'fa-square-o': !todo.is_done,
+                        'fa-check-square': todo.is_done
                     }"
                     @click="toggleTask(todo)"
                     aria-hidden="true"
                 ></i>
 
                 <span
-                    v-if="!todo.editMode"
+                    v-if="!todo.edit_mode"
                     class="js-todo_list-text"
                     @click="editTask(todo)"
-                    >{{ todo.taskName }}</span
+                    >{{ todo.content }}</span
                 >
                 <input
-                    v-if="todo.editMode"
+                    v-if="todo.edit_mode"
                     type="text"
                     class="editText"
-                    v-model="todo.taskName"
+                    v-model="todo.content"
                     @keyup.shift.enter="closeEditTask(todo)"
                 />
 
@@ -73,64 +71,110 @@
 
 <script>
 export default {
+    props: ["tasks", "user", "path"],
     data: function() {
         return {
             // todos: [
             //     {
             //         id: 1,
-            //         taskName: "野菜を片付ける",
-            //         isDone: false,
-            //         editMode: false,
+            //         content: "野菜を片付ける",
+            //         is_done: false,
+            //         edit_mode: false
             //     },
             //     {
             //         id: 2,
-            //         taskName: "買い物に行く",
-            //         isDone: false,
-            //         editMode: false,
-            //     },
+            //         content: "買い物に行く",
+            //         is_done: false,
+            //         edit_mode: false
+            //     }
             // ],
+            content: "",
+            searchText: "",
             errors: false,
-            searchText: ""
+            todos: this.tasks
         };
     },
     methods: {
         addTask() {
-            let text = this.$refs.text;
-            if (!text.value) {
+            // エラー表示
+            let text = this.content;
+            if (!text) {
                 this.errors = true;
                 return;
             }
-            this.todos.push({
-                id: Math.random()
-                    .toString(36)
-                    .slice(-16),
-                taskName: text.value,
-                isDone: false,
-                editMode: false
-            });
 
+            let that = this;
+            axios
+                .post(origin + "/json", {
+                    content: that.content,
+                    user_id: 1
+                })
+                .then(res => {
+                    // タスクの追加
+                    that.todos.push({
+                        content: text,
+                        user_id: that.user.id
+                    });
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+
+            // データを初期状態に戻す
             this.errors = false;
-            text.value = "";
+            this.content = "";
         },
         toggleTask(todo) {
-            todo.isDone = !todo.isDone;
+            // is_done toggle
+            todo.is_done = !todo.is_done;
+
+            axios
+                .post(origin + "/json/done_" + todo.id, {
+                    is_done: todo.is_done
+                })
+                .then(res => {
+                    console.log("toggle ok");
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         },
         editTask(todo) {
-            todo.editMode = true;
+            todo.edit_mode = true;
         },
         closeEditTask(todo) {
-            todo.editMode = false;
+            todo.edit_mode = false;
+
+            axios
+                .post(origin + "/json/cont_" + todo.id, {
+                    content: todo.content
+                })
+                .then(res => {
+                    console.log("content ok");
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         },
         removeTask(todo) {
-            let index = this.todos.indexOf(todo);
-            this.todos.splice(index, 1);
+            let that = this;
+            axios //delete
+                .delete(origin + "/json/" + todo.id)
+                .then(res => {
+                    let index = that.todos.indexOf(todo);
+                    that.todos.splice(index, 1);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         }
     },
     computed: {
         filteredTodos() {
-            const regexp = new RegExp("^" + this.searchText, "i");
+            // const regexp = new RegExp("^" + this.searchText, "i");
+            const regexp = new RegExp(this.searchText, "i");
             return this.todos.filter(elm => {
-                return elm.taskName.match(regexp);
+                return elm.content.match(regexp);
             });
         }
     }

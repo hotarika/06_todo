@@ -25,7 +25,7 @@
             "type": "chrome",
             "request": "launch",
             "name": "Launch Chrome against localhost",
-            "url": "http://laravel.todo/",
+            "url": "http://laravel.todo/todo",
             "sourceMaps": true,
             "sourceMapPathOverrides": {
                 "webpack:///resources/js/components/*.vue": "${workspaceFolder}/resources/js/components/*.vue",
