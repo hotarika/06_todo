@@ -2012,6 +2012,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["tasks", "user", "path"],
   data: function data() {
@@ -2033,7 +2035,8 @@ __webpack_require__.r(__webpack_exports__);
       content: "",
       searchText: "",
       errors: false,
-      todos: this.tasks
+      todos: this.tasks,
+      origin: origin
     };
   },
   methods: {
@@ -38566,7 +38569,11 @@ var render = function() {
         )
       }),
       0
-    )
+    ),
+    _vm._v(" "),
+    _c("p", [_vm._v(_vm._s(_vm.path) + " --- path")]),
+    _vm._v(" "),
+    _c("p", [_vm._v(_vm._s(_vm.origin) + " --- origin")])
   ])
 }
 var staticRenderFns = []

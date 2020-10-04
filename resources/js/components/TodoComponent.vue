@@ -66,6 +66,8 @@
                 ></i>
             </li>
         </ul>
+        <p>{{ path }} --- path</p>
+        <p>{{ origin }} --- origin</p>
     </main>
 </template>
 
@@ -91,7 +93,8 @@ export default {
             content: "",
             searchText: "",
             errors: false,
-            todos: this.tasks
+            todos: this.tasks,
+            origin: origin
         };
     },
     methods: {
