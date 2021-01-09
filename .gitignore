@@ -13,3 +13,4 @@ yarn-error.log
 
 *.drawio
 /public/**/*.map
+.vscode

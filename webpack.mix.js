@@ -20,11 +20,11 @@ mix.webpackConfig({
 });
 
 mix.browserSync({
-    proxy: "http://laravel.todo/",
+    proxy: "http://localhost:8888/99_OP/201004_laravel-todo/public/todo",
     notify: {
         styles: {
-            top: 'auto',
-            bottom: '20px'
+            top: "auto",
+            bottom: "20px"
         }
     }
 });
