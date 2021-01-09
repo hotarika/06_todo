@@ -200,20 +200,20 @@ body {
 .inputText {
     box-sizing: border-box;
     margin-bottom: 15px;
-    padding: 5px;
+    padding: 5px 15px;
     width: 100%;
     height: 40px;
     border: 1px solid #e8e8e8;
-    font-size: 16px;
+    font-size: 14px;
 }
 .btn {
     margin: 0;
-    padding: 5px 30px;
+    padding: 5px 20px;
     border: none;
-    background: #000;
+    background: rgb(0, 0, 0);
     color: #fff;
     text-align: right;
-    font-size: 16px;
+    font-size: 14px;
 }
 .btn:hover {
     cursor: pointer;
@@ -244,7 +244,7 @@ body {
     width: calc(100% - 30px);
     height: 100%;
     border: none;
-    font-size: 16px;
+    font-size: 14px;
 }
 .list {
     margin: 0;
@@ -295,6 +295,6 @@ body {
     width: 80%;
     height: 100%;
     border: none;
-    font-size: 16px;
+    font-size: 14px;
 }
 </style>
