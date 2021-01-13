@@ -2012,24 +2012,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["tasks", "user", "path"],
   data: function data() {
     return {
-      // todos: [
-      //     {
-      //         id: 1,
-      //         content: "野菜を片付ける",
-      //         is_done: false,
-      //         edit_mode: false
-      //     },
-      //     {
-      //         id: 2,
-      //         content: "買い物に行く",
-      //         is_done: false,
-      //         edit_mode: false
-      //     }
-      // ],
       content: "",
       searchText: "",
       errors: false,
@@ -2038,6 +2025,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     addTask: function addTask() {
+      var _this = this;
+
       // エラー表示
       var text = this.content;
 
@@ -2046,15 +2035,14 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
-      var that = this;
       axios.post(this.path + "json", {
-        content: that.content,
-        user_id: 1
+        content: this.content,
+        user_id: this.user.id
       }).then(function (res) {
         // タスクの追加
-        that.todos.push({
+        _this.todos.push({
           content: text,
-          user_id: that.user.id
+          user_id: _this.user.id
         });
       })["catch"](function (err) {
         console.log(err);
@@ -2064,7 +2052,7 @@ __webpack_require__.r(__webpack_exports__);
       this.content = "";
     },
     toggleTask: function toggleTask(todo) {
-      // is_done toggle
+      // is_done トグル
       todo.is_done = !todo.is_done;
       axios.post(this.path + "json/done_" + todo.id, {
         is_done: todo.is_done
@@ -6543,7 +6531,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\nbody[data-v-2bd14908] {\n    background: #f6f5f4;\n    color: #333;\n}\n.main[data-v-2bd14908] {\n    margin: 100px auto;\n    width: 400px;\n}\n.form[data-v-2bd14908] {\n    margin-bottom: 30px;\n    text-align: right;\n}\n.inputArea[data-v-2bd14908] {\n    margin-bottom: 15px;\n}\n.inputText[data-v-2bd14908] {\n    box-sizing: border-box;\n    margin-bottom: 15px;\n    padding: 5px;\n    width: 100%;\n    height: 40px;\n    border: 1px solid #e8e8e8;\n    font-size: 16px;\n}\n.btn[data-v-2bd14908] {\n    margin: 0;\n    padding: 5px 30px;\n    border: none;\n    background: #000;\n    color: #fff;\n    text-align: right;\n    font-size: 16px;\n}\n.btn[data-v-2bd14908]:hover {\n    cursor: pointer;\n}\n.error[data-v-2bd14908] {\n    color: #e9573e;\n}\n.searchBox[data-v-2bd14908] {\n    display: flex;\n    align-items: center;\n    box-sizing: border-box;\n    margin-bottom: 15px;\n    padding: 0 10px;\n    width: 100%;\n    height: 40px;\n    border: 1px solid #e8e8e8;\n    border-radius: 20px;\n    background: #fff;\n}\n.searchBox__icon[data-v-2bd14908] {\n    margin-right: 5px;\n    width: 16px;\n    font-size: 18px;\n}\n.searchBox__input[data-v-2bd14908] {\n    box-sizing: border-box;\n    padding: 5px 10px;\n    width: calc(100% - 30px);\n    height: 100%;\n    border: none;\n    font-size: 16px;\n}\n.list[data-v-2bd14908] {\n    margin: 0;\n    padding: 0;\n    list-style: none;\n}\n.list__item[data-v-2bd14908] {\n    overflow: hidden;\n    padding: 15px 15px;\n    border-bottom: 1px solid #e8e8e8;\n    background: #fff;\n    transition: 0.5s transform;\n}\n.list__item[data-v-2bd14908]:hover {\n    transition: 0.5s transform;\n    transform: scale(1.02);\n}\n.list__item--done[data-v-2bd14908] {\n    background: #d8d8d8;\n    color: #888;\n}\n.icon-square[data-v-2bd14908],\n.icon-check[data-v-2bd14908],\n.icon-sort[data-v-2bd14908],\n.icon-trash[data-v-2bd14908] {\n    cursor: pointer;\n    transition: 0.5s transform;\n}\n.icon-square[data-v-2bd14908]:hover,\n.icon-check[data-v-2bd14908]:hover,\n.icon-sort[data-v-2bd14908]:hover,\n.icon-trash[data-v-2bd14908]:hover {\n    transition: 0.5s transform;\n    transform: scale(1.2);\n}\n.icon-trash[data-v-2bd14908] {\n    position: relative;\n    top: 4px;\n    float: right;\n    color: #e9573e;\n}\n.icon-square[data-v-2bd14908],\n.icon-check[data-v-2bd14908] {\n    margin-right: 15px;\n}\n.editText[data-v-2bd14908] {\n    padding: 5px 10px;\n    width: 80%;\n    height: 100%;\n    border: none;\n    font-size: 16px;\n}\n", ""]);
+exports.push([module.i, "\nbody[data-v-2bd14908] {\n    background: #f6f5f4;\n    color: #333;\n}\n.main[data-v-2bd14908] {\n    margin: 100px auto;\n    width: 400px;\n}\n.form[data-v-2bd14908] {\n    margin-bottom: 30px;\n    text-align: right;\n}\n.inputArea[data-v-2bd14908] {\n    margin-bottom: 15px;\n}\n.inputText[data-v-2bd14908] {\n    box-sizing: border-box;\n    margin-bottom: 15px;\n    padding: 5px 15px;\n    width: 100%;\n    height: 40px;\n    border: 1px solid #e8e8e8;\n    font-size: 14px;\n}\n.btn[data-v-2bd14908] {\n    margin: 0;\n    padding: 5px 20px;\n    border: none;\n    background: rgb(0, 0, 0);\n    color: #fff;\n    text-align: right;\n    font-size: 14px;\n}\n.btn[data-v-2bd14908]:hover {\n    cursor: pointer;\n}\n.error[data-v-2bd14908] {\n    color: #e9573e;\n}\n.searchBox[data-v-2bd14908] {\n    display: flex;\n    align-items: center;\n    box-sizing: border-box;\n    margin-bottom: 15px;\n    padding: 0 10px;\n    width: 100%;\n    height: 40px;\n    border: 1px solid #e8e8e8;\n    border-radius: 20px;\n    background: #fff;\n}\n.searchBox__icon[data-v-2bd14908] {\n    margin-right: 5px;\n    width: 16px;\n    font-size: 18px;\n}\n.searchBox__input[data-v-2bd14908] {\n    box-sizing: border-box;\n    padding: 5px 10px;\n    width: calc(100% - 30px);\n    height: 100%;\n    border: none;\n    font-size: 14px;\n}\n.list[data-v-2bd14908] {\n    margin: 0;\n    padding: 0;\n    list-style: none;\n}\n.list__item[data-v-2bd14908] {\n    overflow: hidden;\n    padding: 15px 15px;\n    border-bottom: 1px solid #e8e8e8;\n    background: #fff;\n    transition: 0.5s transform;\n}\n.list__item[data-v-2bd14908]:hover {\n    transition: 0.5s transform;\n    transform: scale(1.02);\n}\n.list__item--done[data-v-2bd14908] {\n    background: #d8d8d8;\n    color: #888;\n}\n.list-text[data-v-2bd14908] {\n    margin-left: 3px;\n    font-size: 14px;\n}\n.list-text.-done[data-v-2bd14908] {\n    text-decoration: line-through;\n}\n.icon-square[data-v-2bd14908],\n.icon-check[data-v-2bd14908],\n.icon-sort[data-v-2bd14908],\n.icon-trash[data-v-2bd14908] {\n    cursor: pointer;\n    transition: 0.5s transform;\n}\n.icon-square[data-v-2bd14908]:hover,\n.icon-check[data-v-2bd14908]:hover,\n.icon-sort[data-v-2bd14908]:hover,\n.icon-trash[data-v-2bd14908]:hover {\n    transition: 0.5s transform;\n    transform: scale(1.2);\n}\n.icon-trash[data-v-2bd14908] {\n    position: relative;\n    top: 4px;\n    float: right;\n    color: #e9573e;\n}\n.icon-square[data-v-2bd14908],\n.icon-check[data-v-2bd14908] {\n    margin-right: 15px;\n}\n.editText[data-v-2bd14908] {\n    padding: 5px;\n    width: 80%;\n    height: 100%;\n    border: none;\n    font-size: 14px;\n}\n", ""]);
 
 // exports
 
@@ -38401,7 +38389,7 @@ var render = function() {
           attrs: {
             type: "text",
             value: "",
-            placeholder: "ここにTODO内容を書く"
+            placeholder: "TODOを入力してください"
           },
           domProps: { value: _vm.content },
           on: {
@@ -38460,10 +38448,7 @@ var render = function() {
           }
         ],
         staticClass: "searchBox__input",
-        attrs: {
-          type: "text",
-          placeholder: "ここに絞り込みたいキーワードを入力する"
-        },
+        attrs: { type: "text", placeholder: "検索する" },
         domProps: { value: _vm.searchText },
         on: {
           input: function($event) {
@@ -38506,7 +38491,8 @@ var render = function() {
               ? _c(
                   "span",
                   {
-                    staticClass: "js-todo_list-text",
+                    staticClass: "list-text",
+                    class: { "-done": todo.is_done },
                     on: {
                       click: function($event) {
                         return _vm.editTask(todo)
@@ -50996,8 +50982,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/tatata/code/laravel-todo/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/tatata/code/laravel-todo/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Applications/MAMP/htdocs/99_OP/201004_laravel-todo/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/99_OP/201004_laravel-todo/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

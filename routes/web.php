@@ -12,13 +12,14 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    // return redirect('todo');
 });
 
 Auth::routes();
 
 Route::get('home', 'HomeController@index')->name('home');
-Route::get('todo', 'TodoController@index')->name('todo');
+Route::get('/', 'TodoController@index')->name('todo');
 
 // async
 // Route::resource('json', 'TasksAsyncController');

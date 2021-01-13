@@ -17,6 +17,7 @@ class CreateTasksTable extends Migration
             $table->bigIncrements('id');
             $table->string('content');
             $table->boolean('is_done')->default(false);
+            // [edit_mode] DBを操作することはないが、カラムを事前に用意して、js上で操作している
             $table->boolean('edit_mode')->default(false);
             $table->timestamps();
             $table->bigInteger('user_id');

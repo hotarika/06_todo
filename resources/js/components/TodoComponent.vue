@@ -9,7 +9,7 @@
                     value=""
                     v-model="content"
                     @keypress.enter.prevent="addTask"
-                    placeholder="ここにTODO内容を書く"
+                    placeholder="TODOを入力してください"
                 />
                 <span class="error" v-if="errors">入力が空です</span>
             </div>
@@ -23,7 +23,7 @@
                 type="text"
                 class="searchBox__input"
                 v-model="searchText"
-                placeholder="ここに絞り込みたいキーワードを入力する"
+                placeholder="検索する"
             />
         </div>
 
@@ -47,7 +47,8 @@
 
                 <span
                     v-if="!todo.edit_mode"
-                    class="js-todo_list-text"
+                    class="list-text"
+                    :class="{ '-done': todo.is_done }"
                     @click="editTask(todo)"
                     >{{ todo.content }}</span
                 >
@@ -74,20 +75,6 @@ export default {
     props: ["tasks", "user", "path"],
     data: function() {
         return {
-            // todos: [
-            //     {
-            //         id: 1,
-            //         content: "野菜を片付ける",
-            //         is_done: false,
-            //         edit_mode: false
-            //     },
-            //     {
-            //         id: 2,
-            //         content: "買い物に行く",
-            //         is_done: false,
-            //         edit_mode: false
-            //     }
-            // ],
             content: "",
             searchText: "",
             errors: false,
@@ -103,17 +90,16 @@ export default {
                 return;
             }
 
-            let that = this;
             axios
                 .post(this.path + "json", {
-                    content: that.content,
-                    user_id: 1
+                    content: this.content,
+                    user_id: this.user.id
                 })
                 .then(res => {
                     // タスクの追加
-                    that.todos.push({
+                    this.todos.push({
                         content: text,
-                        user_id: that.user.id
+                        user_id: this.user.id
                     });
                 })
                 .catch(err => {
@@ -125,7 +111,7 @@ export default {
             this.content = "";
         },
         toggleTask(todo) {
-            // is_done toggle
+            // is_done トグル
             todo.is_done = !todo.is_done;
 
             axios
@@ -266,6 +252,13 @@ body {
     background: #d8d8d8;
     color: #888;
 }
+.list-text {
+    margin-left: 3px;
+    font-size: 14px;
+}
+.list-text.-done {
+    text-decoration: line-through;
+}
 .icon-square,
 .icon-check,
 .icon-sort,
@@ -291,7 +284,7 @@ body {
     margin-right: 15px;
 }
 .editText {
-    padding: 5px 10px;
+    padding: 5px;
     width: 80%;
     height: 100%;
     border: none;
