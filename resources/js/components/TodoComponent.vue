@@ -96,10 +96,14 @@ export default {
                     user_id: this.user.id
                 })
                 .then(res => {
+                    console.log(res);
                     // タスクの追加
                     this.todos.push({
                         content: text,
-                        user_id: this.user.id
+                        user_id: this.user.id,
+                        is_done: 0,
+                        edit_mode: 0,
+                        id: res.data
                     });
                 })
                 .catch(err => {

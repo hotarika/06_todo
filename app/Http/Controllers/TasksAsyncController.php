@@ -44,6 +44,9 @@ class TasksAsyncController extends Controller
         $tasks->updated_at = Carbon::now();
         $tasks->user_id = $request->user_id;
         $tasks->save();
+
+        $lastId = DB::getPdo()->lastInsertId();
+        return $lastId;
     }
 
     /**
