@@ -10,7 +10,7 @@
 
 &emsp;&emsp;[制作物の詳細ページはこちら](https://created-portfolio.com/todo.html/)
 
-## 必要要件・環境
+## 各バージョン・環境
 
 -   Laravel: 6.18.41
 -   Vue: 2.6.12
