@@ -1,7 +1,4 @@
-# TODO リスト
-
-<img src="https://user-images.githubusercontent.com/61940526/104592566-bc1ab880-56b1-11eb-844e-15e4899dc095.png" width="450px;">
-<br>
+# TODO アプリ #6
 
 ## デモページ
 
@@ -9,9 +6,9 @@
 &emsp;&emsp;メールアドレス： `test1@example.com`<br>
 &emsp;&emsp;パスワード： `rootroot`
 
-## 制作物の説明
+## 制作物の詳細
 
-&emsp;&emsp;[制作物の説明はこちら](https://created-portfolio.com/todo.html/)
+&emsp;&emsp;[制作物の詳細ページはこちら](https://created-portfolio.com/todo.html/)
 
 ## 必要要件・環境
 
