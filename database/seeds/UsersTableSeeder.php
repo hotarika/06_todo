@@ -15,6 +15,13 @@ class UsersTableSeeder extends Seeder
     {
         DB::table('users')->insert([
             'id' => 1,
+            'name' => 'guest user',
+            'email' => 'guest@example.com',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+            'password' => Hash::make('password'),
+        ]);
+        DB::table('users')->insert([
             'name' => 'test1',
             'email' => 'test1@example.com',
             'created_at' => Carbon::now(),
@@ -22,7 +29,6 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('rootroot'),
         ]);
         DB::table('users')->insert([
-            'id' => 2,
             'name' => 'test2',
             'email' => 'test2@example.com',
             'created_at' => Carbon::now(),
@@ -30,7 +36,6 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('rootroot'),
         ]);
         DB::table('users')->insert([
-            'id' => 3,
             'name' => 'test3',
             'email' => 'test3@example.com',
             'created_at' => Carbon::now(),
@@ -38,7 +43,6 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('rootroot'),
         ]);
         DB::table('users')->insert([
-            'id' => 4,
             'name' => 'test4',
             'email' => 'test4@example.com',
             'created_at' => Carbon::now(),

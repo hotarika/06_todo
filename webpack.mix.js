@@ -16,15 +16,15 @@ mix.js("resources/js/app.js", "public/js")
     .sourceMaps();
 
 mix.webpackConfig({
-    devtool: "source-map"
+    devtool: "source-map",
 });
 
 mix.browserSync({
-    proxy: "http://localhost:8888/99_OP/201004_laravel-todo/public/todo",
+    proxy: "http://localhost:8888/99_OP/201004_laravel-todo/public/login",
     notify: {
         styles: {
             top: "auto",
-            bottom: "20px"
-        }
-    }
+            bottom: "20px",
+        },
+    },
 });

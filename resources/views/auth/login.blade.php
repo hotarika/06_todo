@@ -21,9 +21,9 @@
                                     autocomplete="email" autofocus>
 
                                 @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </div>
                         </div>
@@ -38,9 +38,9 @@
                                     required autocomplete="current-password">
 
                                 @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </div>
                         </div>
@@ -65,15 +65,23 @@
                                 </button>
 
                                 @if(Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
+                                <a class="btn btn-link" href="{{ route('password.request') }}">
+                                    {{ __('Forgot Your Password?') }}
+                                </a>
                                 @endif
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
+            <form action="{{route('login')}}" method="post"
+                style="text-align:right;">
+                @csrf
+                <input type="hidden" name="email" value="guest@example.com">
+                <input type="hidden" name="password" value="password">
+                <button type="submit"
+                    style="margin-top:10px; border:none; color: white;padding:5px 10px; border-radius:5px; background-color: #3490dc;">新規登録せずに、機能を試したい方はこちら</button>
+            </form>
         </div>
     </div>
 </div>
