@@ -4,13 +4,11 @@ CURD 処理 + 非同期処理 を使用した TODO アプリです。<br>
 [デモページはこちら](https://created-portfolio.com/todo/)<br>
 [制作物の詳細はこちら](https://created-portfolio.com/detail/todo.html)
 
-<img src="https://user-images.githubusercontent.com/61940526/108459264-a81e3400-72b9-11eb-8d13-4e26e02c69d2.png" width="400px"><br><br>
+<img src="https://user-images.githubusercontent.com/61940526/108459264-a81e3400-72b9-11eb-8d13-4e26e02c69d2.png" width="400px"><br>
 
 ## 機能
 
 -   「挿入」「検索」「編集」「削除」「完了」機能を実装
-
-<br>
 
 ## 使い方
 
@@ -19,8 +17,6 @@ CURD 処理 + 非同期処理 を使用した TODO アプリです。<br>
 -   [編集] タスクの文字上をクリックし編集を行う。確定は Shift + Enter を同時に押す。
 -   [削除] 削除アイコンをクリック。
 -   [完了] チェックボックス（□）をクリックする。
-
-<br>
 
 ## 使用技術
 
