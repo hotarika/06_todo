@@ -2,7 +2,6 @@
 
 CURD 処理 + 非同期処理 を使用した TODO アプリです。<br>
 [デモページはこちら](https://created-portfolio.com/todo/)<br>
-[制作物の詳細はこちら](https://created-portfolio.com/detail/todo.html)
 
 <img src="https://user-images.githubusercontent.com/61940526/108459264-a81e3400-72b9-11eb-8d13-4e26e02c69d2.png" width="400px"><br>
 
